@@ -1,0 +1,35 @@
+<div cg-busy="reportReturnsList.$promise">
+<div class="generic-container">
+    <div ng-include="'resources/app/breadcrumbs.html'"></div>
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">
+            <span class="lead">Returns Report for {{startDateTitle | date : 'M/dd/yyyy'}} to
+                    {{endDateTitle | date : 'M/dd/yyyy'}}</span>
+        </div>
+        <div class="tablecontainer">
+            <table class="table table-striped table-hover" datatable="ng" dt-options="dt.options" dt-column-defs="dt.cols">
+                <thead>
+                <tr class="hcenter">
+                    <th>Style</th>
+                    <th>Description</th>
+                    <th>Color</th>
+                    <th>Quantity</th>
+                    <th>Return Reason</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in reportReturnsList">
+                    <td class="hcenter">{{item.style}}</td>
+                    <td class="hcenter">{{item.description}}</td>
+                    <td class="hcenter">{{item.color}} </td>
+                    <td class="hcenter">{{item.quantity}} </td>
+                    <td class="hcenter">{{item.reasonDesc}} </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+

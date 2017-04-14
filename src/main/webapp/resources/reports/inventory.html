@@ -1,0 +1,97 @@
+<div class="generic-container">
+    <div ng-include="'resources/app/breadcrumbs.html'"></div>
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">
+            <span class="lead">Style/Inventory Lookup</span>
+            </span>
+        </div>
+        <div class="tablecontainer">
+            <br/>
+            <!------------------------------------->
+            <!------------ Style Lookup ----------->
+            <!------------------------------------->
+            <form name="inventoryForm" class="form-horizontal">
+                <br/>
+                <div class="loyalty-tab-container">
+                    <div class="form-group">
+                        <label for="style" class="col-sm-2 control-label">Style Number</label>
+                        <div class="col-sm-3 req-div">
+                            <input type="text" class="form-control" name="style" ng-model="inventory.style"
+                                   id="style" maxlength="8" placeholder="Style Number" only-digits>
+                        </div>
+                    </div>
+                </div>
+                <div class="pink-bg">
+                    <p>
+                        pink text here....
+                    </p>
+                </div>
+
+
+                <!-------------------------------------------------------------------->
+                <div class="form-group">
+                    <label for="buttons" class="col-sm-2"></label>
+                    <div class="col-sm-8" id="buttons">
+                        <button class="btn btn-sm btn-default" ng-click="lookupInventory()">Lookup Style/Inventory
+                            Information
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <div cg-busy="reportInvList.$promise">
+                <uib-accordion>
+                    <div uib-accordion-group class="panel-default" is-open="isInventoryOpen"
+                         template-url="resources/app/bower/angular-ui-bootstrap/template/accordion/accordion-group.html">
+                        <uib-accordion-heading>
+                            Style/Inventory Information
+                            <i class="glyphicon"
+                               ng-class="{'glyphicon-chevron-down': status.isInventoryOpen, 'glyphicon-chevron-right': !status.isInventoryOpen}"></i>
+                        </uib-accordion-heading>
+                        <table class="table table-striped table-hover" datatable="ng" dt-options="dt.options"
+                               dt-column-defs="dt.cols">
+                            <thead>
+                                <tr class="hcenter">
+                                    <th>Style &nbsp;/<br/>Last Received Date
+                                    </th>
+                                    <th>Item/Sku &nbsp;/<br/>
+                                        Last Allocated Date
+                                    </th>
+                                    <th>Description &nbsp;/<br/>
+                                        NFI Quantity On Hand as of Today
+                                    </th>
+                                    <th>Color &nbsp;/<br/>
+                                        NFI Inventory Type
+                                    </th>
+                                    <th>Size</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in reportInvList" class="hcenter">
+                                    <td>{{item.style}}<br/><br/>---------------<br/><br/>
+                                        {{item.lastReceivedDate | date : "MM/dd/y"}}
+                                    </td>
+                                    <td>{{item.item}}<br/><br/>---------------<br/><br/>
+                                        {{item.lastAllocatedDate | date : "MM/dd/y"}}
+                                    </td>
+                                    <td>{{item.styleDesc}} <br/><br/>---------------<br/><br/>
+                                        {{item.nfiOnHandQty}}
+                                    </td>
+                                    <td>{{item.color}}<br/><br/>---------------<br/><br/>
+                                        {{item.nfiInventoryType == null ? "N/A" : item.nfiInventoryType}}
+                                    </td>
+                                    <td>{{item.size}}</td>
+                                    <td><img src="{{item.imageUrl}}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </uib-accordion>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+

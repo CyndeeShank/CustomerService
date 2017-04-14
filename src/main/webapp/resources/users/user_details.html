@@ -1,0 +1,136 @@
+<div cg-busy="userDetailForm.$promise">
+    <div class="generic-container">
+        <div ng-include="'resources/app/breadcrumbs.html'"></div>
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">
+                <span class="lead">Details for User:&nbsp;&nbsp; {{user.firstName}} &nbsp; {{user.lastName}}</span>
+            </div>
+            <div class="tablecontainer">
+                <table class="table table-hover">
+                    <tr>
+                        <th>Login</th>
+                        <td>{{user.login}}</td>
+                    </tr>
+                    <tr>
+                        <th>Dept</th>
+                        <td>{{user.dept}}</td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>{{user.email}}</td>
+                    </tr>
+                    <tr>
+                        <th>Ext</th>
+                        <td>{{user.ext}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<h1>{{title}} {{hlc.name}}</h1>
+
+<div>
+    <!-------------------------------------------------------------->
+    <!------------ User Detail Create/Edit/Update ------------------>
+    <!-------------------------------------------------------------->
+    <form name="userDetailForm" class="form-horizontal">
+        <!-- Login -->
+        <div class="form-group" ng-class="!viewMode">
+            <label for="login" class="col-sm-2 control-label">Login:</label>
+
+            <div class="col-sm-3 req-div" ng-show="!viewMode">
+                <input type="text" class="form-control" name="login" ng-model="user.login"
+                       id="login" maxlength="8" placeholder="Login">
+
+            </div>
+            <div class="col-sm-8" ng-show="viewMode">
+                <p class="form-control-static">{{user.login}}</p>
+            </div>
+        </div>
+        <!-- Department -->
+        <div class="form-group" ng-class="!viewMode">
+            <label for="deptSelect" class="col-sm-2 control-label">Department:</label>
+
+            <div class="col-sm-3" id="deptSelect" ng-show="!viewMode">
+                <ui-select ng-model="user.dept" theme="bootstrap">
+                    <ui-select-match placeholder="Select department...">
+                        {{$select.selected.name}}
+                    </ui-select-match>
+                    <ui-select-choices repeat="d in deptList | filter:$select.search">
+                        {{d.name}}
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+            <div class="col-sm-10" ng-show="viewMode">
+                <p class="form-control-static">{{user.dept}}</p>
+            </div>
+        </div>
+        <!-- Email -->
+        <div class="form-group" ng-class="!viewMode">
+            <label for="email" class="col-sm-2 control-label">Email:</label>
+
+            <div class="col-sm-3 req-div" ng-show="!viewMode">
+                <input type="email" class="form-control" name="email" ng-model="user.email"
+                       id="email" maxlength="30" placeholder="Email">
+
+            </div>
+            <div class="col-sm-8" ng-show="viewMode">
+                <p class="form-control-static">{{user.email}}</p>
+            </div>
+        </div>
+
+
+        <!-- Refunds -->
+        <div class="form-group" ng-class="!viewMode">
+            <label for="canDoRefunds" class="col-sm-2 control-label">Can Do Refunds?:</label>
+
+            <div class="col-sm-3 req-div" ng-show="!viewMode">
+                <input type="checkbox"
+                       bootstrap-switch data-size="medium"
+                       data-label-width="0"
+                       data-on-text="Yes"
+                       data-off-text="No"
+                       bootstrap-switch
+                       id="canDoRefunds"
+                       ng-model="user.canDoRefunds" checked/>
+            </div>
+            <div class="col-sm-8" ng-show="viewMode">
+                <p class="form-control-static">{{user.canDoRefunds == true ? 'Yes' : 'No'}}</p>
+            </div>
+        </div>
+
+
+        <!-------------------------------------------------------------------->
+        <div class="form-group">
+            <label for="buttons" class="col-sm-2"></label>
+            <!-- add ray-has-access to Save button and Edit button -->
+            <div class="col-sm-8" id="buttons">
+                <button id="save-btn" class="btn btn-info" ng-show="!viewMode"
+                        ng-click="saveForm()"
+                        ng-disabled="!isFormDirty()">Save
+                </button>
+                <!-- Edit button -->
+                <button id="edit-btn" class="btn btn-primary" ng-show="viewMode && !disabledHotlist"
+                        ng-click="setEditMode()">Edit
+                </button>
+                <!-- Cancel button for Edit -->
+                <button id="cancel-btn" class="btn btn-default" ng-show="viewMode"
+                        ng-click="cancelUpdate()">Cancel
+                </button>
+                <!-- Cancel button for View -->
+                <button class="btn btn-default" ng-show="!viewMode && !newHotlist"
+                        ng-click="cancelEdit()">Cancel
+                </button>
+                <!-- Cancel button for New -->
+                <button class="btn btn-default" ng-show="!viewMode && newHotlist"
+                        ng-click="cancelNew()">Cancel
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+	
+
+

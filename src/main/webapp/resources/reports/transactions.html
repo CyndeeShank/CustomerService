@@ -1,0 +1,77 @@
+<div cg-busy="reportTransChargeList.$promise">
+    <div class="generic-container">
+        <div ng-include="'resources/app/breadcrumbs.html'"></div>
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">
+            <span class="lead">Open Transactions Report
+            </span>
+            </div>
+            <div class="tablecontainer">
+                <uib-tabset>
+                    <!----- tab for Charge Failed ----->
+                    <uib-tab active>
+                        <uib-tab-heading class="loyalty-tab-heading" name="chargeFailed">Charge Failed Transactions
+                        </uib-tab-heading>
+                        <table class="table table-striped table-hover" datatable="ng" dt-options="dt.options"
+                               dt-column-defs="dt.cols">
+                            <thead>
+                                <tr class="hcenter">
+                                    <th>Transaction<br/>Id</th>
+                                    <th>Transaction<br/>Date</th>
+                                    <th>EMS Order No</th>
+                                    <th>Transaction<br/>Type</th>
+                                    <th>Transaction<br/>Status</th>
+                                    <th>Transaction<br/>Amount</th>
+                                    <th>Account Number</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in reportTransChargeList" class="hcenter">
+                                    <td>{{item.id}}</td>
+                                    <td>{{item.date | date : "MM/dd/y"}}</td>
+                                    <td>{{item.orderNo}}</td>
+                                    <td>{{item.type}}</td>
+                                    <td>{{item.status}}</td>
+                                    <td>{{item.amount | currency}}</td>
+                                    <td>{{item.accountNum == "" ? "********" : item.accountNum}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </uib-tab>
+                    <!----- tab for Refund Failed ----->
+                    <uib-tab>
+                        <uib-tab-heading class="loyalty-tab-heading" name="refundFailed">Refund Failed Transactions
+                        </uib-tab-heading>
+                        <table class="table table-striped table-hover" datatable="ng" dt-options="dt2.options"
+                               dt-column-defs="dt2.cols">
+                            <thead>
+                                <tr class="hcenter">
+                                    <th>Transaction<br/>Id</th>
+                                    <th>Transaction<br/>Date</th>
+                                    <th>EMS Order No</th>
+                                    <th>Transaction<br/>Type</th>
+                                    <th>Transaction<br/>Status</th>
+                                    <th>Transaction<br/>Amount</th>
+                                    <th>Account Number</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in reportTransRefundList" class="hcenter">
+                                    <td>{{item.id}}</td>
+                                    <td>{{item.date | date : "MM/dd/y"}}</td>
+                                    <td>{{item.orderNo}}</td>
+                                    <td>{{item.type}}</td>
+                                    <td>{{item.status}}</td>
+                                    <td>{{item.amount | currency}}</td>
+                                    <td>{{item.accountNum}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </uib-tab>
+                </uib-tabset>
+            </div>
+        </div>
+    </div>
+</div>
+

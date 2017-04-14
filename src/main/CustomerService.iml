@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="Spring" name="Spring">
+      <configuration>
+        <fileset id="fileset" name="Spring Application Context" removed="false">
+          <file>file://$MODULE_DIR$/java/com/ws/customerservice/config/MvcConfig.java</file>
+        </fileset>
+      </configuration>
+    </facet>
+    <facet type="web" name="Web">
+      <configuration>
+        <webroots>
+          <root url="file://$MODULE_DIR$/webapp" relative="/" />
+        </webroots>
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../..">
+      <sourceFolder url="file://$MODULE_DIR$/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/webapp/resources" type="java-resource" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="slf4j-api-1.5.8" level="application" />
+    <orderEntry type="library" name="lombok" level="application" />
+    <orderEntry type="library" name="Spring-4.2.3.RELEASE" level="application" />
+    <orderEntry type="library" name="Spring-web-servlet-3.2.5" level="application" />
+    <orderEntry type="library" name="Java EE 6-Java EE 6 (2)" level="project" />
+    <orderEntry type="library" name="jtds-1.3.1" level="application" />
+    <orderEntry type="library" name="javax.validation" level="application" />
+    <orderEntry type="library" name="jackson" level="application" />
+    <orderEntry type="library" name="poi-3.14-20160307" level="application" />
+    <orderEntry type="library" name="xmlbeans" level="application" />
+    <orderEntry type="library" name="ojdbc6" level="application" />
+    <orderEntry type="library" name="commons-lang3-3.4" level="application" />
+    <orderEntry type="library" name="com.ws.services.commonutil_1_0_0" level="application" />
+  </component>
+</module>

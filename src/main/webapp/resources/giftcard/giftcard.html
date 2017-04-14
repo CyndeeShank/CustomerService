@@ -1,0 +1,67 @@
+<div cg-busy="giftcardForm.$promise">
+    <div class="generic-container">
+        <div ng-include="'resources/app/breadcrumbs.html'"></div>
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">
+                <span class="lead">Gift Cards</span>
+                </span>
+            </div>
+            <div class="tablecontainer">
+                <br/>
+                <!--------------------------------------->
+                <!------------ Gift Card Functions ----------->
+                <!--------------------------------------->
+                <form name="giftcardForm" class="form-horizontal">
+                    <div class="form-group">
+                        <span class="col-sm-2"></span>
+                        <div class="col-sm-4 btn-group-sm">
+                            <button type="button" class="btn btn-success"
+                                    ng-class="{'active':type == 'balance'}"
+                                    ng-click="setType('balance')">Balance/History
+                            </button>
+                            <button type="button" class="btn btn-success"
+                                    ng-class="{'active':type == 'activate'}"
+                                    ng-click="setType('activate')">Activation
+                            </button>
+                            <button type="button" class="btn btn-success"
+                                    ng-class="{'active':type == 'shred'}"
+                                    ng-click="setType('shred')">Shred Gift Card
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Number -->
+                    <div class="loyalty-tab-container">
+                        <div class="form-group">
+                            <label for="number" class="col-sm-2 control-label">Gift Card Number:</label>
+                            <div class="col-sm-3 req-div">
+                                <input type="text" class="form-control" name="number" ng-model="giftcard.number"
+                                       id="number" maxlength="16" placeholder="Gift Card Number" only-digits>
+                            </div>
+                        </div>
+                        <!-- Pin -->
+                        <div class="form-group" ng-show="type != 'shred'">
+                            <label for="pin" class="col-sm-2 control-label">Gift Card Pin:</label>
+                            <div class="col-sm-3 req-div">
+                                <input type="text" class="form-control" name="pin" ng-model="giftcard.pin"
+                                       id="pin" maxlength="8" placeholder="Gift Card Pin" only-digits>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-------------------------------------------------------------------->
+                    <div class="form-group">
+                        <label for="buttons" class="col-sm-2"></label>
+                        <div class="col-sm-8" id="buttons">
+                            <button class="btn btn-sm btn-default" ng-click="submitGC()">Submit
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+

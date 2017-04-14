@@ -1,0 +1,76 @@
+<div cg-busy="orderLookupForm.$promise">
+    <div class="generic-container">
+        <div ng-include="'resources/app/breadcrumbs.html'"></div>
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">
+                <span class="lead">Order Lookup / Resubmission to Distribution </span>
+                </span>
+            </div>
+            <div class="tablecontainer">
+                <br/>
+                <!--------------------------------------->
+                <!------------ Order Lookup ----------->
+                <!--------------------------------------->
+                <form name="orderLookupForm" class="form-horizontal">
+                    <!-- Number -->
+                    <div class="loyalty-tab-container">
+                        <div class="form-group">
+                            <label for="number" class="col-sm-2 control-label">Invoice Number:</label>
+                            <div class="col-sm-3 req-div">
+                                <input type="text" class="form-control" name="number" ng-model="invoice.number"
+                                       id="number" maxlength="7" placeholder="Invoice Number" only-digits>
+                            </div>
+                        </div>
+                    </div>
+                    <!-------------------------------------------------------------------->
+                    <div class="form-group">
+                        <label for="buttons" class="col-sm-2"></label>
+                        <div class="col-sm-8" id="buttons">
+                            <button class="btn btn-sm btn-default" ng-click="lookupOrder()">Submit
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <div cg-busy="orderNumber.$promise">
+                    <uib-accordion>
+                        <div uib-accordion-group class="panel-default" is-open="isLookupOpen"
+                             template-url="resources/app/bower/angular-ui-bootstrap/template/accordion/accordion-group.html">
+                            <uib-accordion-heading>
+                                Order Information
+                                <i class="glyphicon"
+                                   ng-class="{'glyphicon-chevron-down': status.isLookupOpen, 'glyphicon-chevron-right': !status.isLookupOpen}"></i>
+                            </uib-accordion-heading>
+
+                            <form name="orderInvoiceForm" class="form-horizontal">
+                                <div class="loyalty-tab-container">
+                                    <div class="form-group">
+                                        <label for="order" class="col-sm-2 control-label">Order Number:</label>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control" id="order" ng-model="orderNumber">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--
+                                -->
+                                <br/>
+                                <div class="form-group">
+                                    <label for="buttons" class="col-sm-5"></label>
+                                    <div class="col-sm-6">
+                                        <button class="btn btn-warning" ng-click="resubmitOrder()">Resubmit
+                                            Order to Distribution
+                                        </button>
+                                        <h5 class="text-success">&nbsp; {{message}} </h5>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </uib-accordion>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

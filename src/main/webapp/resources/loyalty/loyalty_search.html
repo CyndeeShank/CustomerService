@@ -1,0 +1,139 @@
+<div cg-busy="loyaltyForm.$promise">
+    <div class="generic-container">
+        <div ng-include="'resources/app/breadcrumbs.html'"></div>
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">
+                <span class="lead">Loyalty</span>
+                <span class="pull-right">
+                <button class="btn-sm btn-info" ng-click="addLoyaltyCard()">Add New Loyalty Card &nbsp;
+                    <i class="glyphicon glyphicon-plus"></i>
+                </button>
+			</span>
+            </div>
+            <div class="tablecontainer">
+                <br/>
+                <!--------------------------------------->
+                <!------------ Loyalty Lookup ----------->
+                <!--------------------------------------->
+                <form name="loyaltyForm" class="form-horizontal">
+                    <uib-tabset>
+                        <!----- tab for Search by Loyalty Number ----->
+                        <uib-tab active>
+                            <uib-tab-heading class="loyalty-tab-heading" name="searchNumber"
+                                             ng-click="setCurrentTab('number')">Search by Number</uib-tab-heading>
+                            <br/>
+                            <!-- Number -->
+                            <div class="loyalty-tab-container">
+                                <div class="form-group">
+                                    <label for="number" class="col-sm-2 control-label">Loyalty Number</label>
+                                    <div class="col-sm-3 req-div">
+                                        <input type="text" class="form-control" name="number" ng-model="loyalty.number"
+                                               id="number" maxlength="12" placeholder="Loyalty Number" only-digits>
+                                    </div>
+                                </div>
+                            </div>
+                        </uib-tab>
+                        <uib-tab>
+                            <uib-tab-heading class="loyalty-tab-heading" name="searchName"
+                                             ng-click="setCurrentTab('name')">Search by Name </uib-tab-heading>
+                            <br/>
+                            <!-- First Name -->
+                            <div class="loyalty-tab-container">
+                                <div class="form-group">
+                                    <label for="firstName" class="col-sm-2 control-label">First Name</label>
+                                    <div class="col-sm-3 req-div">
+                                        <input type="text" class="form-control" name="firstName"
+                                               ng-model="loyalty.first"
+                                               id="firstName" maxlength="30" placeholder="First Name">
+                                    </div>
+                                </div>
+                                <!-- Last Name -->
+                                <div class="form-group">
+                                    <label for="lastName" class="col-sm-2 control-label">Last Name</label>
+                                    <div class="col-sm-3 req-div">
+                                        <input type="text" class="form-control" name="lastName" ng-model="loyalty.last"
+                                               id="lastName" maxlength="30" placeholder="Last Name">
+                                    </div>
+                                </div>
+                            </div>
+                        </uib-tab>
+                        <uib-tab>
+                            <uib-tab-heading class="loyalty-tab-heading" name="searchEmail"
+                                             ng-click="setCurrentTab('email')">Search by Email Address </uib-tab-heading>
+                            <br/>
+                            <div class="loyalty-tab-container">
+                                <!-- Email -->
+                                <div class="form-group">
+                                    <label for="email" class="col-sm-2 control-label">Email Address</label>
+                                    <div class="col-sm-3 req-div">
+                                        <input type="email" class="form-control" name="email" ng-model="loyalty.email"
+                                               id="email" maxlength="30" placeholder="Email Address">
+                                    </div>
+                                </div>
+                            </div>
+                        </uib-tab>
+                        <uib-tab>
+                            <uib-tab-heading class="loyalty-tab-heading" name="searchAll"
+                                             ng-click="setCurrentTab('all')">Search by All </uib-tab-heading>
+                            <br/>
+                            <div class="loyalty-tab-container">
+                                <!-- Number -->
+                                <div class="loyalty-tab-container">
+                                    <div class="form-group">
+                                        <label for="all-number" class="col-sm-2 control-label">Loyalty Number</label>
+                                        <div class="col-sm-3 req-div">
+                                            <input type="text" class="form-control" name="number"
+                                                   ng-model="loyalty.number"
+                                                   id="all-number" maxlength="12" placeholder="Loyalty Number" only-digits>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- First Name -->
+                                <div class="loyalty-tab-container">
+                                    <div class="form-group">
+                                        <label for="all-firstName" class="col-sm-2 control-label">First Name</label>
+                                        <div class="col-sm-3 req-div">
+                                            <input type="text" class="form-control" name="firstName"
+                                                   ng-model="loyalty.first"
+                                                   id="all-firstName" maxlength="30" placeholder="First Name">
+                                        </div>
+                                    </div>
+                                    <!-- Last Name -->
+                                    <div class="form-group">
+                                        <label for="all-lastName" class="col-sm-2 control-label">Last Name</label>
+                                        <div class="col-sm-3 req-div">
+                                            <input type="text" class="form-control" name="lastName"
+                                                   ng-model="loyalty.last"
+                                                   id="all-lastName" maxlength="30" placeholder="Last Name">
+                                        </div>
+                                    </div>
+                                    <!-- Email -->
+                                    <div class="form-group">
+                                        <label for="all-email" class="col-sm-2 control-label">Email Address</label>
+                                        <div class="col-sm-3 req-div">
+                                            <input type="email" class="form-control" name="email" ng-model="loyalty.email"
+                                                   id="all-email" maxlength="30" placeholder="Email Address">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </uib-tab>
+                    </uib-tabset>
+
+
+                    <!-------------------------------------------------------------------->
+                    <div class="form-group">
+                        <label for="buttons" class="col-sm-2"></label>
+                        <div class="col-sm-8" id="buttons">
+                            <button class="btn btn-sm btn-default" ng-click="lookupLoyalty()">Lookup Loyalty Information
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+

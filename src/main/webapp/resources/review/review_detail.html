@@ -1,0 +1,75 @@
+<div cg-busy="detail.$promise">
+    <div class="generic-container">
+        <div ng-include="'resources/app/breadcrumbs.html'"></div>
+        <div class="panel panel-default">
+            <!-------------------------------------------->
+            <!------------ Loyalty Detail ---------------->
+            <!-------------------------------------------->
+            <div class="panel-heading">
+                <span class="lead">Add Order Review Customer Details</span>
+            </div>
+            <div class="tablecontainer">
+                <br/> <br/>
+                <form name="reviewDetailForm" class="form-horizontal">
+                    <!-- Address -->
+                    <div class="form-group">
+                        <label for="address" class="col-sm-2 control-label">Address:</label>
+
+                        <div class="col-sm-4 req-div">
+                            <input type="text" class="form-control" name="address" ng-model="detail.address"
+                                   id="address" maxlength="50" placeholder="Address" >
+                        </div>
+                    </div>
+                    <!-- Zipcode -->
+                    <div class="form-group">
+                        <label for="zip" class="col-sm-2 control-label">Zip Code:</label>
+
+                        <div class="col-sm-4 req-div">
+                            <input type="text" class="form-control" name="zip" ng-model="detail.zip"
+                                   id="zip" maxlength="10" placeholder="Zip Code" >
+                        </div>
+                    </div>
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="email" class="col-sm-2 control-label">Email Address:</label>
+
+                        <div class="col-sm-4" >
+                            <input type="email" class="form-control" name="email" ng-model="detail.email"
+                                   id="email" maxlength="30" placeholder="Email Address">
+                        </div>
+                    </div>
+                    <!-- Reason -->
+                    <div class="form-group">
+                        <label for="reason" class="col-sm-2 control-label">Reason:</label>
+
+                        <div class="col-sm-4 req-div">
+                            <input type="text" class="form-control" name="reason" ng-model="detail.reason"
+                                   id="reason" maxlength="50" placeholder="Reason">
+                        </div>
+                    </div>
+
+
+                    <!-------------------------------------------------------------------->
+                    <div class="form-group">
+                        <label for="buttons" class="col-sm-2"></label>
+                        <!-- add ray-has-access to Save button and Edit button -->
+                        <div class="col-sm-8" id="buttons">
+                            <!-- Save button -->
+                            <button id="save-btn" class="btn btn-sm btn-info"
+                                    ng-click="saveForm()" ng-disabled="!isFormDirty()">Save
+                            </button>
+                            <!-- Cancel button -->
+                            <button class="btn btn-sm btn-default" ng-click="cancelNew()">Cancel
+                            </button>
+                            <!-- Clear fields button -->
+                            <button class="btn btn-sm btn-warning" ng-click="clearFields()">Clear Fields
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div> <!-- end of the panel -->
+    </div>
+</div>
+
+

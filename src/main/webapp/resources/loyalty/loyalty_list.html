@@ -1,0 +1,42 @@
+<div cg-busy="loyaltyList.$promise">
+<div class="generic-container">
+    <div ng-include="'resources/app/breadcrumbs.html'"></div>
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">
+            <span class="lead">Loyalty Customers:</span>
+        </div>
+        </div>
+        <div class="tablecontainer">
+            <table class="table table-striped table-hover" datatable="ng" dt-options="dt.options" dt-column-defs="dt.cols">
+                <thead>
+                <tr class="hcenter">
+                    <th>Name</th>
+                    <th>Number</th>
+                    <th>Expiration Date</th>
+                    <th>Email Address</th>
+                    <th>Birth Date</th>
+                    <th>Sign Up Store</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="hcenter" ng-repeat="loyalty in loyaltyList">
+                    <td ng-if="loyalty.loyaltyNumber != '000000000000'">
+                        <a ng-href="#/loyalty/detail/{{loyalty.loyaltyNumber}}">{{loyalty.firstName}} &nbsp; {{loyalty.lastName}}</a>
+                        </td>
+                    <td ng-if="loyalty.loyaltyNumber == '000000000000'">
+                        {{loyalty.firstName}} &nbsp; {{loyalty.lastName}}</td>
+                    <td>{{loyalty.loyaltyNumber}}</td>
+
+                    <td>{{loyalty.expTimestamp | date : "MM/dd/y"}}</td>
+                    <td>{{loyalty.emailAddress}}</td>
+                    <td>{{loyalty.bdTimestamp | date : "MM/dd"}}</td>
+                    <td>{{loyalty.signUpStore == null ? 'N/A' : loyalty.signUpStore}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+

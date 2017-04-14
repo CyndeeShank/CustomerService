@@ -1,0 +1,287 @@
+<div cg-busy="orderSearchForm.$promise">
+    <div class="generic-container">
+        <div ng-include="'resources/app/breadcrumbs.html'"></div>
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">
+                <span class="lead">Search Orders</span>
+                <!-- Duration filters -->
+                <div class="btn-toolbar pull-right ">
+                    <button type="button" class="btn btn-sm btn-default" ng-class="{'active':duration == '3m'}"
+                            ng-click="setDuration('3m')">Last 3 months
+                    </button>
+                    <button type="button" class="btn btn-sm btn-default" ng-class="{'active':duration == '6m'}"
+                            ng-click="setDuration('6m')">Last 6 months
+                    </button>
+                    <button type="button" class="btn btn-sm btn-default" ng-class="{'active':duration == '12m'}"
+                            ng-click="setDuration('12m')">Last 12 months
+                    </button>
+                    <button type="button" class="btn btn-sm btn-default" ng-class="{'active':duration == 'all'}"
+                            ng-click="setDuration('all')">All Orders
+                    </button>
+                </div>
+            </div>
+            <div class="tablecontainer">
+                <!-------------------------------------------->
+                <!------------ Order Detail Search ----------->
+                <!-------------------------------------------->
+                <form name="orderSearchForm" class="form-horizontal">
+                    <uib-tabset>
+                        <!----- tab for Search by Number ----->
+                        <uib-tab active>
+                            <uib-tab-heading class="loyalty-tab-heading" name="searchNumber"
+                                             ng-click="setCurrentTab('number')">Search by Number
+                            </uib-tab-heading>
+                            <br/>
+                            <!-- Number -->
+                            <div class="form-group">
+                                <span class="col-sm-3"></span>
+                                <div class="col-sm-6 btn-group-sm">
+                                    <button type="button" class="btn btn-success"
+                                            ng-class="{'active':number == 'web'}"
+                                            ng-click="setNumber('web')">Web Order
+                                    </button>
+                                    <button type="button" class="btn btn-success"
+                                            ng-class="{'active':number == 'invoice'}"
+                                            ng-click="setNumber('invoice')">Invoice
+                                    </button>
+                                    <button type="button" class="btn btn-success"
+                                            ng-class="{'active':number == 'order'}"
+                                            ng-click="setNumber('order')">Order
+                                    </button>
+                                    <button type="button" class="btn btn-success"
+                                            ng-class="{'active':number == 'giftcard'}"
+                                            ng-click="setNumber('giftcard')">Gift Card
+                                    </button>
+                                    <button type="button" class="btn btn-success"
+                                            ng-class="{'active':number == 'loyalty'}"
+                                            ng-click="setNumber('loyalty')">Loyalty
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- Number -->
+                            <div class="form-group">
+                                <label for="orderNo" class="col-sm-3 control-label">Order Number</label>
+                                <div class="col-sm-5 req-div">
+                                    <input type="text" class="form-control" name="orderNo"
+                                           ng-model="order.number"
+                                           id="orderNo" maxlength="{{selectedData.Type.MaxLength}}" only-digits
+                                           ng-attr-placeholder="{{placeholder}}">
+                                </div>
+                            </div>
+                        </uib-tab>
+                        <!-- Last 4 CC number -->
+                        <uib-tab>
+                            <uib-tab-heading class="loyalty-tab-heading" name="searchCC"
+                                             ng-click="setCurrentTab('cc')">Search by CC
+                            </uib-tab-heading>
+                            <br/>
+                            <div class="form-group">
+                                <label for="cc" class="col-sm-3 control-label">Last 4 CC Number</label>
+                                <div class="col-sm-5 req-div">
+                                    <input type="text" class="form-control" name="cc" ng-model="order.ccNo"
+                                           id="cc" maxlength="4" placeholder="Last 4 CC Number" only-digits>
+                                </div>
+                            </div>
+                        </uib-tab>
+                        <uib-tab>
+                            <uib-tab-heading class="loyalty-tab-heading" name="searchEmail"
+                                             ng-click="setCurrentTab('email')">Search by Email
+                            </uib-tab-heading>
+                            <br/>
+
+                            <div class="form-group">
+                                <span class="col-sm-3"></span>
+                                <div class="col-sm-6 btn-group-sm">
+                                    <button type="button" class="btn btn-default"
+                                            ng-class="{'active':type == 'billing'}"
+                                            ng-click="setType('billing')">Billing
+                                    </button>
+                                    <button type="button" class="btn btn-default"
+                                            ng-class="{'active':type == 'shipping'}"
+                                            ng-click="setType('shipping')">Shipping
+                                    </button>
+                                    <span>&nbsp; &nbsp;</span>
+                                    <button type="button" class="btn btn-default"
+                                            ng-class="{'active':match == 'exact'}"
+                                            ng-click="setMatch('exact')">Exact
+                                    </button>
+                                    <button type="button" class="btn btn-default"
+                                            ng-class="{'active':match == 'like'}"
+                                            ng-click="setMatch('like')">Like
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- Email -->
+                            <div class="form-group">
+                                <label for="email" class="col-sm-3 control-label">Email</label>
+                                <div class="col-sm-5 req-div">
+                                    <input type="email" class="form-control" name="email" ng-model="order.email"
+                                           id="email" maxlength="30" placeholder="Email Address">
+                                </div>
+                            </div>
+
+                        </uib-tab>
+                        <uib-tab>
+                            <uib-tab-heading class="loyalty-tab-heading" name="searchName"
+                                             ng-click="setCurrentTab('name')">Search by Name
+                            </uib-tab-heading>
+                            <br/>
+
+                            <div class="form-group">
+                                <span class="col-sm-3"></span>
+                                <div class="col-sm-6 btn-group-sm">
+                                    <button type="button" class="btn btn-default"
+                                            ng-class="{'active':type == 'billing'}"
+                                            ng-click="setType('billing')">Billing
+                                    </button>
+                                    <button type="button" class="btn btn-default"
+                                            ng-class="{'active':type == 'shipping'}"
+                                            ng-click="setType('shipping')">Shipping
+                                    </button>
+                                    <span>&nbsp; &nbsp;</span>
+                                    <button type="button" class="btn btn-default"
+                                            ng-class="{'active':match == 'exact'}"
+                                            ng-click="setMatch('exact')">Exact
+                                    </button>
+                                    <button type="button" class="btn btn-default"
+                                            ng-class="{'active':match == 'like'}"
+                                            ng-click="setMatch('like')">Like
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- Last Name -->
+                            <div class="form-group">
+                                <label for="lname" class="col-sm-3 control-label">Last Name</label>
+                                <div class="col-sm-5 req-div">
+                                    <input type="text" class="form-control" name="lname"
+                                           ng-model="order.lastName"
+                                           id="lname" maxlength="30" placeholder="Last Name">
+                                </div>
+                            </div>
+                            <!-- First Name -->
+                            <div class="form-group">
+                                <label for="fname" class="col-sm-3 control-label">First Name</label>
+                                <div class="col-sm-5 req-div">
+                                    <input type="text" class="form-control" name="fname"
+                                           ng-model="order.firstName"
+                                           id="fname" maxlength="30" placeholder="First Name">
+                                </div>
+                            </div>
+                        </uib-tab>
+                        <uib-tab>
+                            <uib-tab-heading class="loyalty-tab-heading" name="searchAddress"
+                                             ng-click="setCurrentTab('address')">Search by Address
+                            </uib-tab-heading>
+                            <br/>
+
+                            <div class="form-group">
+                                <span class="col-sm-3"></span>
+                                <div class="col-sm-6 btn-group-sm">
+                                    <button type="button" class="btn btn-default"
+                                            ng-class="{'active':type == 'billing'}"
+                                            ng-click="setType('billing')">Billing
+                                    </button>
+                                    <button type="button" class="btn btn-default"
+                                            ng-class="{'active':type == 'shipping'}"
+                                            ng-click="setType('shipping')">Shipping
+                                    </button>
+                                    <span>&nbsp; &nbsp;</span>
+                                    <button type="button" class="btn btn-default"
+                                            ng-class="{'active':match == 'exact'}"
+                                            ng-click="setMatch('exact')">Exact
+                                    </button>
+                                    <button type="button" class="btn btn-default"
+                                            ng-class="{'active':match == 'like'}"
+                                            ng-click="setMatch('like')">Like
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- Address -->
+                            <div class="form-group">
+                                <label for="address" class="col-sm-3 control-label">Address:</label>
+                                <div class="col-sm-5 req-div">
+                                    <input type="text" class="form-control" name="address" ng-model="order.address"
+                                           id="address" maxlength="30" placeholder="Address">
+                                </div>
+                            </div>
+                            <!-- City -->
+                            <div class="form-group">
+                                <label for="city" class="col-sm-3 control-label">City:</label>
+                                <div class="col-sm-5 req-div">
+                                    <input type="text" class="form-control" name="city" ng-model="order.city"
+                                           id="city" maxlength="30" placeholder="City">
+                                </div>
+                            </div>
+                            <!-- State -->
+                            <div class="form-group">
+                                <label for="state" class="col-sm-3 control-label">State:</label>
+                                <div class="col-sm-5 req-div" id="state">
+                                    <ui-select ng-model="order.state" theme="bootstrap">
+                                        <ui-select-match placeholder="Select State...">
+                                            {{$select.selected.description}}
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="s in states | filter:$select.search">
+                                            {{s.description}}
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+                            <!-- Zip Code -->
+                            <div class="form-group">
+                                <label for="zip" class="col-sm-3 control-label">Zip Code:</label>
+                                <div class="col-sm-5 req-div">
+                                    <input type="text" class="form-control" name="zip" ng-model="order.zip"
+                                           id="zip" maxlength="5" placeholder="Zip Code" only-digits>
+                                </div>
+                            </div>
+                        </uib-tab>
+                        <uib-tab>
+                            <uib-tab-heading class="loyalty-tab-heading" name="searchStatus"
+                                             ng-click="setCurrentTab('status')">Search by Status
+                            </uib-tab-heading>
+                            <br/>
+                            <!-- Order Search filters -->
+                            <div class="form-group">
+                                <label class="col-sm-3"></label>
+                                <div class="col-sm-4 list-group">
+                                    <button type="button" class="list-group-item list-group-item-success"
+                                            ng-click="orderSearch('new')">New Orders
+                                    </button>
+                                    <button type="button" class="list-group-item list-group-item-info"
+                                            ng-click="orderSearch('dist')">Orders Sent to Distribution
+                                    </button>
+                                    <button type="button" class="list-group-item list-group-item-info"
+                                            ng-click="orderSearch('ship')">Orders Shipped
+                                    </button>
+                                    <button type="button" class="list-group-item list-group-item-warning"
+                                            ng-click="orderSearch('auto')">Orders on Auto Hold
+                                    </button>
+                                    <button type="button" class="list-group-item list-group-item-warning"
+                                            ng-click="orderSearch('manual')">Orders on Manual Hold
+                                    </button>
+                                    <button type="button" class="list-group-item list-group-item-danger"
+                                            ng-click="orderSearch('cancel')">Orders Cancelled
+                                    </button>
+                                </div>
+                            </div>
+
+                        </uib-tab>
+                    </uib-tabset>
+
+                    <!-------------------------------------------------------------------->
+                    <div class="form-group" ng-show="searchType != 'status'">
+                        <label for="buttons" class="col-sm-3"></label>
+                        <div class="col-sm-8" id="buttons">
+                            <button id="search-btn" class="btn btn-sm btn-info"
+                                    ng-click="searchOrders()"
+                                    ng-disabled="!isFormDirty()">Search Orders
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

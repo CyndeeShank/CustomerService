@@ -1,0 +1,79 @@
+<div class="generic-container">
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">
+            <span class="lead">Place your T-Shirt order below</span>
+        </div>
+        <div class="tablecontainer">
+            <div class="row">
+                <div class="col-md-6">
+                    <br/> <br/>
+                    <form name="tshirtOrderForm" class="form-horizontal">
+                        <!-- Name -->
+                        <div class="form-group">
+                            <label for="name" class="col-sm-3 control-label">Name:</label>
+
+                            <div class="col-sm-6 req-div">
+                                <input type="text" class="form-control" name="name" ng-model="info.name"
+                                       id="name" maxlength="50" placeholder="Name" required>
+                            </div>
+                        </div>
+                        <!-- Employee # -->
+                        <div class="form-group">
+                            <label for="empno" class="col-sm-3 control-label">Employee #:</label>
+
+                            <div class="col-sm-4 req-div">
+                                <input type="text" class="form-control" name="empno" ng-model="info.empno"
+                                       id="empno" maxlength="7" placeholder="Employee #" only-digits required>
+                            </div>
+                        </div>
+                        <!-- Size -->
+                        <div class="form-group">
+                            <label for="size" class="col-sm-3 control-label">Size:</label>
+
+                            <div class="col-sm-4 req-div" id="size">
+                                <ui-select ng-model="info.size" theme="bootstrap" ng-required="true">
+                                    <ui-select-match placeholder="Select Size...">
+                                        {{$select.selected.description}}
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="s in sizes | filter:$select.search">
+                                        {{s.description}}
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                        <!-- Quantity -->
+                        <div class="form-group">
+                            <label for="qty" class="col-sm-3 control-label">Quantity:</label>
+                            <div class="col-sm-4 req-div" id="qty">
+                                <ui-select ng-model="info.qty" theme="bootstrap">
+                                    <ui-select-match placeholder="Select Quantity...">
+                                        {{$select.selected.abbreviation}}
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="s in qtyList | filter:$select.search">
+                                        {{s.description}}
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+
+
+                        <!-------------------------------------------------------------------->
+                        <div class="form-group">
+                            <label for="buttons" class="col-sm-3"></label>
+                            <div class="col-sm-8" id="buttons">
+                                <button id="save-btn" class="btn btn-sm btn-info"
+                                        ng-click="validateFields()"
+                                        ng-disabled="!isFormDirty()">Save Order
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-4">
+                    <img src="resources/img/wetseal-logo-TEE-2.jpg" width="500px"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

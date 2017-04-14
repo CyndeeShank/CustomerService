@@ -1,0 +1,150 @@
+<div cg-busy="detail.$promise">
+    <div class="generic-container">
+        <div ng-include="'resources/app/breadcrumbs.html'"></div>
+        <div class="panel panel-default">
+            <!-------------------------------------------->
+            <!------------ Loyalty Detail ---------------->
+            <!-------------------------------------------->
+            <div class="panel-heading">
+                <span class="lead">{{title}}</span>
+            </div>
+            <div class="tablecontainer">
+                <br/> <br/>
+                <form name="loyaltyDetailForm" class="form-horizontal">
+                    <!-- Name -->
+                    <div class="form-group" ng-class="!viewMode">
+                        <label for="firstName" class="col-sm-2 control-label">Name:</label>
+
+                        <div class="col-sm-3 req-div" ng-show="!viewMode">
+                            <input type="text" class="form-control" name="firstName" ng-model="detail.firstName"
+                                   id="firstName" maxlength="20" placeholder="First Name">
+                            <input type="text" class="form-control" name="lastName" ng-model="detail.lastName"
+                                   id="lastName" maxlength="20" placeholder="Last Name">
+                        </div>
+                        <div class="col-sm-8" ng-show="viewMode">
+                            <p class="form-control-static">{{detail.firstName}} &nbsp; {{detail.lastName}}</p>
+                        </div>
+                    </div>
+                    <!-- Email -->
+                    <div class="form-group" ng-class="!viewMode">
+                        <label for="email" class="col-sm-2 control-label">Email Address:</label>
+
+                        <div class="col-sm-3 req-div" ng-show="!viewMode">
+                            <input type="text" class="form-control" name="email" ng-model="detail.emailAddress"
+                                   id="email" maxlength="30" placeholder="Email Address">
+                        </div>
+                        <div class="col-sm-8" ng-show="viewMode">
+                            <p class="form-control-static">{{detail.emailAddress}}</p>
+                        </div>
+                    </div>
+                    <!-- Loyalty Number -->
+                    <div class="form-group" ng-class="!viewMode">
+                        <label for="number" class="col-sm-2 control-label">Loyalty Number:</label>
+
+                        <div class="col-sm-3 req-div" ng-show="!viewMode">
+                            <input type="text" class="form-control" name="number" ng-model="detail.loyaltyNumber"
+                                   id="number" maxlength="12" placeholder="Loyalty Number" only-digits>
+                        </div>
+                        <div class="col-sm-8" ng-show="viewMode">
+                            <p class="form-control-static">{{detail.loyaltyNumber}}</p>
+                        </div>
+                    </div>
+                    <!-- Birth Date -->
+                    <div class="form-group" ng-class="!viewMode">
+                        <label for="birthDate" class="col-sm-2 control-label">Birth Date:</label>
+
+                        <div class="col-sm-2 req-div" ng-show="!viewMode">
+                            <div class="input-group">
+                                <input type="text" class="form-control" uib-datepicker-popup="{{bdFormat}}"
+                                       ng-model="detail.bdTimestamp" is-open="popup2.opened"
+                                       datepicker-options="bdDateOptions" id="birthDate" ng-required="true"
+                                       close-text="Close"/>
+                                <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="open2()">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-8" ng-show="viewMode">
+                            <p class="form-control-static">{{detail.bdTimestamp | date : "M-dd"}}</p>
+                            </td>
+                        </div>
+                    </div>
+                    <!-- Expiration Date -->
+                    <div class="form-group" ng-class="!viewMode">
+                        <label for="expDate" class="col-sm-2 control-label">Expiration Date:</label>
+
+                        <div class="col-sm-2 req-div" ng-show="!viewMode">
+                            <div class="input-group">
+                                <input type="text" class="form-control" uib-datepicker-popup="{{format}}"
+                                       ng-model="detail.expTimestamp" is-open="popup.opened"
+                                       datepicker-options="expDateOptions" id="expdate" ng-required="true"
+                                       close-text="Close"/>
+                                <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="open()">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-8" ng-show="viewMode">
+                            <p class="form-control-static">{{detail.expTimestamp | date : "M-dd-yyyy"}}</p>
+                            </td>
+                        </div>
+                    </div>
+                    <!-- Sign Up Store -->
+                    <div class="form-group" ng-class="!viewMode">
+                        <label for="store" class="col-sm-2 control-label">Sign Up Store:</label>
+
+                        <div class="col-sm-3 req-div" ng-show="!viewMode">
+                            <input type="text" class="form-control" name="store" ng-model="detail.signUpStore"
+                                   id="store" maxlength="3" placeholder="Sign Up Store" only-digits>
+                        </div>
+                        <div class="col-sm-8" ng-show="viewMode">
+                            <p class="form-control-static">{{detail.signUpStore}}</p>
+                        </div>
+                    </div>
+
+
+                    <!-------------------------------------------------------------------->
+                    <div class="form-group">
+                        <label for="buttons" class="col-sm-2"></label>
+                        <!-- add ray-has-access to Save button and Edit button -->
+                        <div class="col-sm-8" id="buttons">
+                            <button id="save-btn" class="btn btn-sm btn-info" ng-show="!viewMode"
+                                    ng-click="saveForm()"
+                                    ng-disabled="!isFormDirty()">Save
+                            </button>
+                            <!-- Edit button -->
+                            <button id="edit-btn" class="btn btn-sm btn-primary" ng-show="viewMode"
+                                    ng-click="setEditMode()">Edit
+                            </button>
+                            <!-- Cancel button for Edit -->
+                            <button id="cancel-btn" class="btn btn-sm btn-default" ng-show="viewMode"
+                                    ng-click="cancelUpdate()">Cancel
+                            </button>
+                            <!-- Cancel button for View -->
+                            <button class="btn btn-sm btn-default" ng-show="!viewMode && !newLoyalty"
+                                    ng-click="cancelEdit()">Cancel
+                            </button>
+                            <!-- Cancel button for New -->
+                            <button class="btn btn-sm btn-default" ng-show="!viewMode && newLoyalty"
+                                    ng-click="cancelNew()">Cancel
+                            </button>
+                            <!-- Deactivate button -->
+                            <button class="btn btn-sm btn-warning" ng-show="viewMode"
+                                    ng-click="deactivate()">Deactivate
+                            </button>
+                            <button class="btn btn-sm btn-info" ng-show="viewMode"
+                                    ng-click="findOrder()">Link to Order
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div> <!-- end of the panel -->
+    </div>
+</div>
+
+

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html ng-app="CustomerServiceApp">
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title>Wet Seal Customer Service Portal</title>
+
+        <!-- Spacelab Bootswatch stylesheet -->
+        <link rel="stylesheet" href="resources/css/bootstrap.min.css">
+        <link rel="stylesheet" href="resources/app/bower/datatables/media/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" href="resources/app/bower/angular-ui-select/dist/select.min.css">
+        <link rel="stylesheet" href="resources/app/bower/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="resources/app/bower/angular-busy/dist/angular-busy.min.css">
+        <link rel="stylesheet" href="resources/app/bower/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css">
+        <link rel="stylesheet"
+              href="resources/app/bower/angular-datatables/dist/plugins/bootstrap/datatables.bootstrap.min.css">
+
+        <link rel="stylesheet" href="resources/css/app.css">
+
+        <script type="text/javascript" src="resources/app/bower/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="resources/app/bower/jquery-ui/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="resources/app/bower/datatables/media/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="resources/app/bower/bootstrap/dist/js/bootstrap.min.js"></script>
+
+        <script type="text/javascript" src="resources/app/bower/angular/angular.min.js"></script>
+        <script type="text/javascript" src="resources/app/bower/angular-resource/angular-resource.min.js"></script>
+        <script type="text/javascript" src="resources/app/bower/angular-route/angular-route.min.js"></script>
+        <script type="text/javascript"
+                src="resources/app/bower/angular-datatables/dist/angular-datatables.min.js"></script>
+        <script type="text/javascript" src="resources/app/bower/moment/moment.js"></script>
+        <script type="text/javascript" src="resources/app/bower/angular-animate/angular-animate.min.js"></script>
+        <script type="text/javascript" src="resources/app/bower/angular-ui-select/dist/select.js"></script>
+        <script type="text/javascript" src="resources/app/bower/angular-bootstrap/ui-bootstrap.min.js"></script>
+        <script type="text/javascript" src="resources/app/bower/angular-loader/angular-loader.min.js"></script>
+        <script type="text/javascript" src="resources/app/bower/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+        <script type="text/javascript"
+                src="resources/app/bower/angular-datatables/dist/plugins/bootstrap/angular-datatables.bootstrap.min.js"></script>
+        <script type="text/javascript" src="resources/app/bower/ng-breadcrumbs/dist/ng-breadcrumbs.min.js"></script>
+        <script type="text/javascript"
+                src="resources/app/bower/bootstrap-switch/dist/js/bootstrap-switch.min.js"></script>
+        <script type="text/javascript" src="resources/app/bower/angular-busy/dist/angular-busy.min.js"></script>
+        <script type="text/javascript" src="resources/app/bower/angular-telephone-filter/dist/angular-telephone-filter.min.js"></script>
+
+        <script type="text/javascript" src="resources/app/app.js"></script>
+        <script type="text/javascript" src="resources/app/routes.js"></script>
+        <script type="text/javascript" src="resources/app/dates.js"></script>
+        <script type="text/javascript" src="resources/users/users.js"></script>
+        <script type="text/javascript" src="resources/giftcard/giftcard.js"></script>
+        <script type="text/javascript" src="resources/order/order.js"></script>
+        <script type="text/javascript" src="resources/reports/reports.js"></script>
+        <script type="text/javascript" src="resources/loyalty/loyalty.js"></script>
+        <script type="text/javascript" src="resources/review/review.js"></script>
+    </head>
+
+    <div class="generic-container">
+        <h2>Employee WS Thankful T-Shirt Event</h2>
+        <div ng-if="loggedInUser" class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">
+                <nav class="navbar navbar-inverse">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                                    data-target="#bs-example-navbar-collapse-2">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                            <ul class="nav navbar-nav li-nav">
+                                <li ng-class="{'active': $currentModule == 'home'}"><a href="#/home">Home</a></li>
+                                <!--
+                                <li class="disabled" ng-class="{'active': $currentModule == 'users'}"><a href="#/users">Users</a>
+                                </li>
+                                <li ng-class="{'active': $currentModule == 'giftcard'}"><a href="#/giftcard">Gift
+                                    Cards</a></li>
+                                <li ng-class="{'active': $currentModule == 'review'}"><a href="#/review">Customer
+                                    Review</a></li>
+                                <li ng-class="{'active': $currentModule == 'loyalty'}"><a
+                                        href="#/loyalty">Loyalty</a></li>
+                                <li ng-class="{'active': $currentModule == 'reports'}"><a
+                                        href="#/reports">Reports</a></li>
+
+                                <li class="dropdown" ng-class="{'active': $currentModule == 'order'}">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                       aria-expanded="false">Order Management <span class="caret"></span></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#/orders">Order Search</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">Search by Giftcard Number</a></li>
+                                        <li><a href="#">Search by Loyalty Number</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">One more separated link</a></li>
+                                    </ul>
+                                </li>
+                                -->
+                                <!--
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li title="Logout as {{user}}"><a href="#/logout">Logout</a></li>
+                            </ul>
+                            -->
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <div ng-if="!loggedInUser" class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading"><span class="lead">Login</span></div>
+            <div class="tablecontainer"></div>
+        </div>
+    </div>
+
+    <div ng-view></div>
+
+    <!-------------------------------------------------------------------->
+    <div class="generic-container" ng-show="successMessage">
+        <div ng-include="'resources/app/success.html'"></div>
+    </div>
+    <div class="generic-container" ng-show="warningMessage">
+        <div ng-include="'resources/app/warning.html'"></div>
+    </div>
+    <div class="generic-container" ng-show="errorMessage">
+        <div ng-include="'resources/app/error.html'"></div>
+    </div>
+    </body>
+</html>

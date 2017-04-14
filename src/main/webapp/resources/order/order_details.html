@@ -1,0 +1,483 @@
+<div cg-busy="orderDetail.$promise">
+    <div class="generic-container">
+        <div ng-include="'resources/app/breadcrumbs.html'"></div>
+        <div class="panel panel-default">
+            <!-------------------------------------------->
+            <!------------ Customer Detail ------------------>
+            <!-------------------------------------------->
+            <div class="panel-heading">
+                <span class="lead">Customer Details</span>
+                <div class="checkbox pull-right">
+                    <label>
+                        <input type="checkbox" ng-model="oneAtATime">
+                        Display one section at a time
+                    </label>
+                </div>
+            </div>
+
+            <uib-accordion close-others="oneAtATime">
+
+                <div uib-accordion-group class="panel-default" is-open="status.isBillingOpen"
+                     template-url="resources/app/bower/angular-ui-bootstrap/template/accordion/accordion-group.html">
+                    <uib-accordion-heading>
+                        Billing and Shipping Information
+                        <i class="glyphicon"
+                           ng-class="{'glyphicon-chevron-down': status.isBillingOpen, 'glyphicon-chevron-right': !status.isBillingOpen}"></i>
+                    </uib-accordion-heading>
+
+
+                    <table class="table table-hover customer-detail-table" border="0">
+                        <tbody>
+                            <tr>
+                                <td class="address-header" colspan="2">
+                                    Billing
+                                </td>
+                                <td class="address-header" colspan="2">
+                                    Shipping
+                                </td>
+                            </tr>
+                            <tr>
+                                <!-- billing info -->
+                                <td class="edit-address-col">
+                                    <form editable-form name="billAddressForm" onaftersave="saveBillingAddress()">
+                                        <ul class="list-group">
+                                            <li class="list-group-item">
+                                                <span editable-text="orderDetail.billingFirstName" e-name="billingFirst"
+                                                      e-required>
+                                                {{orderDetail.billingFirstName}}
+                                                </span>
+                                                &nbsp;
+                                                <span editable-text="orderDetail.billingLastName" e-name="billingLast"
+                                                      e-required>
+                                                {{orderDetail.billingLastName}}
+                                                </span>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <span editable-text="orderDetail.billingAddress" e-name="billingAddress"
+                                                      e-style="width:250px" e-required>
+                                                {{orderDetail.billingAddress}}
+                                                </span> &nbsp;
+                                                <span editable-text="orderDetail.billingAddress2"
+                                                      e-name="billingAddress2"
+                                                      e-style="width:75px" e-required>
+                                                {{orderDetail.billingAddress2 || ''}}
+                                                </span>
+                                            </li>
+
+
+                                            <li class="list-group-item">
+                                                <span editable-text="orderDetail.billingCity" e-name="billingCity"
+                                                      e-required>
+                                                {{orderDetail.billingCity}}
+                                                </span> &nbsp;
+                                                <span editable-select="orderDetail.billingState" e-name="billingState"
+                                                      e-ng-options="s.abbreviation as s.description for s in states">
+                                                {{orderDetail.billingState}}
+                                                </span> &nbsp;
+                                                <span editable-text="orderDetail.billingZip" e-name="billingZip" e-form="billAddressForm"
+                                                      e-style="width:75px"  e-required>
+                                                {{orderDetail.billingZip}}
+                                                </span>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <span editable-text="orderDetail.billingPhone" e-name="billingPhone">
+                                                {{orderDetail.billingPhone | bcTelephone:'format'}}
+                                                </span>
+                                            </li>
+                                            <li class="list-group-item" ng-if="orderDetail.billingCellphone != null">
+                                                <span editable-text="orderDetail.billingCellphone"
+                                                      e-name="billingCellphone">
+                                                {{orderDetail.billingCellphone | bcTelephone:'format'}} (cell)
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </form>
+                                </td>
+                                <td class="edit-button-col">
+                                    <fieldset class="btn-group-vertical btn-group-sm">
+                                        <button class="btn btn-info" ng-click="billAddressForm.$show()"
+                                                ng-show="!billAddressForm.$visible">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                        <!-- buttons to submit/cancel form -->
+                                        <span ng-show="billAddressForm.$visible">
+                                           <button type="button" class="btn btn-primary"
+                                                   ng-disabled="billAddressForm.$waiting"
+                                                   ng-click="saveBillingInfo()">
+                                            <i class="fa fa-check"></i>
+                                           </button>
+                                           <button type="button" class="btn btn-default"
+                                                   ng-disabled="billAddressForm.$waiting"
+                                                   ng-click="billAddressForm.$cancel()">
+                                            <i class="fa fa-close"></i>
+                                           </button>
+                                        </span>
+                                    </fieldset>
+                                </td>
+
+                                <!-- shipping info -->
+                                <td class="edit-address-col">
+                                    <ul class="list-group">
+                                        <li class="list-group-item">{{orderDetail.shippingFirstName}} &nbsp;
+                                            {{orderDetail.shippingLastName}}
+                                        </li>
+                                        <li class="list-group-item">{{formatAddress('shipping')}}</li>
+                                        <li class="list-group-item">{{orderDetail.shippingCity}} &nbsp;
+                                            {{orderDetail.shippingState}} &nbsp; {{orderDetail.shippingZip}}
+                                        </li>
+                                        <li class="list-group-item">
+                                            {{orderDetail.shippingPhone | bcTelephone:'format'}}
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td class="edit-button-col">
+                                    <fieldset class="btn-group-vertical btn-group-sm">
+                                        <button class="btn btn-info" ng-click="shipAddressForm.$show()"
+                                                ng-show="!shipAddressForm.$visible">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                        <!-- buttons to submit/cancel form -->
+                                        <span ng-show="shipAddressForm.$visible">
+                                           <button type="submit" class="btn btn-primary"
+                                                   ng-disabled="shipAddressForm.$waiting">
+                                            <i class="fa fa-check"></i>
+                                           </button>
+                                           <button type="button" class="btn btn-default"
+                                                   ng-disabled="shipAddressForm.$waiting"
+                                                   ng-click="shipAddressForm.$cancel()">
+                                            <i class="fa fa-close"></i>
+                                           </button>
+                                        </span>
+                                    </fieldset>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-------------------------------------------->
+                <!------------ Payment Detail ---------------->
+                <!-------------------------------------------->
+                <div uib-accordion-group class="panel-default" is-open="status.isPaymentOpen"
+                     template-url="resources/app/bower/angular-ui-bootstrap/template/accordion/accordion-group.html">
+                    <uib-accordion-heading>
+                        Payment Details
+                        <i class="glyphicon"
+                           ng-class="{'glyphicon-chevron-down': status.isPaymentOpen, 'glyphicon-chevron-right': !status.isPaymentOpen}"></i>
+                    </uib-accordion-heading>
+                    <table id="payment-detail" class="table table-hover payment-detail-table" border="0">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <ul class="list-group" ng-repeat="payment in orderPaymentList">
+                                        <li class="list-group-item">
+                                            <span class="order-detail-label">Method:</span>
+                                            <span class="order-detail-value">{{payment.paymentType}}</span>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <span class="order-detail-label">Pre-Auth Amount:</span>
+                                            <span class="order-detail-value">{{payment.preauthAmount | currency}}</span>
+                                        </li>
+                                        <li ng-if="payment.paymentType != 'PayPal'" class="list-group-item">
+                                            <span class="order-detail-label">CC Hint:</span>
+                                            <span class="order-detail-value">{{payment.ccHint}}</span>
+                                        </li>
+                                        <li ng-if="payment.paymentType == 'PayPal'" class="list-group-item">
+                                            <span class="order-detail-label">Auth Code:</span>
+                                            <span class="order-detail-value">{{payment.authCode}}</span>
+                                        <li class="list-group-item">
+                                            <span class="order-detail-label">Total Amount:</span>
+                                            <span class="order-detail-value">{{payment.paymentAmount | currency}}</span>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="list-group" ng-repeat="payment in orderPaymentList"
+                                        ng-if="payment.paymentType != 'Gift Card' && payment.paymentType != 'AMZ' && payment.paymentType != 'PayPal'">
+                                        <li class="list-group-item">
+                                            <span class="order-detail-label">Expiration:</span>
+                                            <span class="order-detail-value">{{payment.expirationDate}}</span>
+                                        </li>
+
+                                        <li class="list-group-item">
+                                            <span class="order-detail-label">Name on Card:</span>
+                                            <span class="order-detail-value">{{payment.cardName}}</span>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <span class="order-detail-label">AVS:</span>
+                                            <span class="order-detail-value">{{payment.avsCode}}</span>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <span class="order-detail-label">Auth Code:</span>
+                                            <span class="order-detail-value">{{payment.authCode}}</span>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-------------------------------------------->
+                <!------------ Order Detail ------------------>
+                <!-------------------------------------------->
+                <div uib-accordion-group class="panel-default" is-open="status.isDetailOpen"
+                     template-url="resources/app/bower/angular-ui-bootstrap/template/accordion/accordion-group.html">
+                    <uib-accordion-heading>
+                        Order Details &nbsp; <span class="text-success">({{orderDetail.orderNo}})</span>
+                        <i class="glyphicon"
+                           ng-class="{'glyphicon-chevron-down': status.isDetailOpen, 'glyphicon-chevron-right': !status.isDetailOpen}"></i>
+                        <span class="pull-right text-warning">
+                            <h5 class="text-warning">Current Status: &nbsp;&nbsp;{{orderStatusList[0].status}}</h5>
+                        </span>
+                    </uib-accordion-heading>
+
+                    <table id="order-detail" class="table table-hover order-detail-table" border="0">
+                        <tbody>
+                            <tr>
+                                <!-- order details -->
+                                <td>
+                                    <table class="table table-hover order-detail-table" border="0">
+                                        <tbody>
+                                            <tr>
+                                                <td class="order-detail-label">Order #</td>
+                                                <td class="order-detail-value">{{orderDetail.orderNo}} &nbsp; / &nbsp;
+                                                    <span ng-if="orderDetail.orderType == 'AMZ'" data-toggle="tooltip"
+                                                          data-placement="left"
+                                                          title="Amazon">
+                                                    <i class="fa fa-amazon"></i>
+                                                </span>
+                                                    <span ng-if="orderDetail.orderType == 'DW'" data-toggle="tooltip"
+                                                          data-placement="left"
+                                                          title="Demandware">
+                                                    <i class="fa fa-laptop"></i>
+                                                </span>
+                                                    <span ng-if="orderDetail.orderType == 'CREDIT'"
+                                                          data-toggle="tooltip"
+                                                          data-placement="left"
+                                                          title="Store Credit">
+                                                    <i class="fa fa-credit-card"></i>
+                                                </span> &nbsp;
+                                                    {{orderDetail.webOrderNo}}
+                                                    <span ng-if="orderDetail.orderType == 'AMZ'">
+                                                        / <br/> {{orderDetail.amazonOrderNo}}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="order-detail-label">Order Date:</td>
+                                                <td class="order-detail-value">{{orderDetail.dateOrdered == null ? 'N/A'
+                                                    : orderDetail.dateOrdered | date : "M/dd/yyyy h:mm:ss a"}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="order-detail-label">Tax Rate:</td>
+                                                <td class="order-detail-value">{{orderDetail.taxRate | number : 2}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="order-detail-label">Tax Total:</td>
+                                                <td class="order-detail-value">{{orderDetail.taxTotal | currency}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="order-detail-label">On Hold:</td>
+                                                <td class="order-detail-value">{{orderDetail.orderOnHold == false ? 'No'
+                                                    : 'Yes'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="order-detail-label">Cancelled:</td>
+                                                <td class="order-detail-value">{{orderDetail.orderCancelled == false ?
+                                                    'No' : 'Yes'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="order-detail-label">Loyalty Number:</td>
+                                                <td class="order-detail-value">{{orderDetail.loyaltyNo == null ? 'N/A' :
+                                                    orderDetail.loyaltyNo}}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <!-- shipping details -->
+                                <td>
+                                    <table class="table table-hover order-detail-table" border="0">
+                                        <tbody>
+                                            <tr>
+                                                <td class="order-detail-label">Shipped?</td>
+                                                <td class="order-detail-value">{{orderDetail.dateShipped == null ? 'No'
+                                                    : 'Yes'}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="order-detail-label">Shipping Method:</td>
+                                                <td class="order-detail-value">{{orderDetail.shipMethod}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="order-detail-label">Date Shipped:</td>
+                                                <td class="order-detail-value">{{orderDetail.dateShipped == null ? 'N/A'
+                                                    : orderDetail.dateShipped | date : "MM/dd/y"}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="order-detail-label">Shipping Carrier:</td>
+                                                <td class="order-detail-value">{{orderDetail.shippingCarrier == 'NA' ?
+                                                    'N/A' : orderDetail.shippingCarrier}}
+                                                </td>
+                                            </tr>
+                                            <tr> <!-- add tracking number link -->
+                                                <td class="order-detail-label">Tracking #:</td>
+                                                <td class="order-detail-value">{{orderDetail.trackingNo == null ? 'N/A'
+                                                    : orderDetail.trackingNo}}
+                                                </td>
+                                            </tr>
+                                            <tr> <!-- add link to invoice.pdf -->
+                                            <tr> <!-- add tracking number link -->
+                                                <td class="order-detail-label">Tracking #:</td>
+                                                <td class="order-detail-value">
+                                                    <a ng-click="showTracking(orderDetail.trackingNo)">{{orderDetail.trackingNo}}</a>
+                                                </td>
+                                            </tr>
+                                            <tr> <!-- add link to invoice.pdf -->
+                                                <td class="order-detail-label">Invoice #:</td>
+                                                <td class="order-detail-value">{{orderDetail.invoiceNo == null ? 'N/A' :
+                                                    orderDetail.invoiceNo}}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <!-- button actions -->
+                                <td>
+                                    <div class="list-group">
+                                        <button type="button" class="list-group-item list-group-item-default"
+                                                ng-click="holdOrder()">Place Order on Hold
+                                        </button>
+                                        <button type="button" class="list-group-item list-group-item-info"
+                                                ng-click="releaseOrder()">Release Order from Hold
+                                        </button>
+                                        <button type="button" class="list-group-item list-group-item-danger"
+                                                ng-click="cancelOrder()">Cancel Order
+                                        </button>
+                                        <button type="button" class="list-group-item list-group-item-warning"
+                                                ng-click="uncancelOrder()">UN-Cancel Order
+                                        </button>
+                                        <button type="button" class="list-group-item list-group-item-warning"
+                                                ng-click="returnOrder()">Return Order
+                                        </button>
+                                        <button type="button" class="list-group-item list-group-item-warning"
+                                                ng-click="refundOrder()">Process Refund
+                                        </button>
+                                        <button type="button" class="list-group-item list-group-item-success"
+                                                ng-click="reshipOrder()">Re-Ship Order
+                                        </button>
+                                        <button type="button" class="list-group-item list-group-item-warning"
+                                                ng-click="processRMA()">Process RMA
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!------------------------------------------->
+                <!------------ Item Detail ------------------>
+                <!------------------------------------------->
+                <div uib-accordion-group class="panel-default" is-open="status.isItemDetailOpen"
+                     template-url="resources/app/bower/angular-ui-bootstrap/template/accordion/accordion-group.html">
+                    <uib-accordion-heading>
+                        Item Details
+                        <i class="glyphicon"
+                           ng-class="{'glyphicon-chevron-down': status.isItemDetailOpen, 'glyphicon-chevron-right': !status.isItemDetailOpen}"></i>
+                    </uib-accordion-heading>
+                    <table id="item-detail" class="table table-hover item-detail-table" border="0">
+                        <thead>
+                            <tr>
+                                <td colspan="9"></td>
+                                <td colspan="5" class="item-detail-label-qty">Quantity</td>
+                                <td></td>
+                            </tr>
+                            <tr class="vcenter">
+                                <td class="item-detail-label">Sku</td>
+                                <td class="item-detail-label">Style</td>
+                                <td class="item-detail-label">Description</td>
+                                <td class="item-detail-label">Color</td>
+                                <td class="item-detail-label hcenter">Size</td>
+                                <td class="item-detail-label hcenter">Taxable</td>
+                                <td class="item-detail-label hcenter">Discount<br/>FIC</td>
+                                <td class="item-detail-label hcenter">Discount<br/>Amt</td>
+                                <td class="item-detail-label hcenter">Discount<br/>List</td>
+                                <td class="item-detail-label-qty">Ordered</td>
+                                <td class="item-detail-label-qty">Returned</td>
+                                <td class="item-detail-label-qty">Refunded</td>
+                                <td class="item-detail-label-qty">Cancelled</td>
+                                <td class="item-detail-label-qty">Shipped</td>
+                                <td class="item-detail-label hcenter">Unit Price</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in orderDetail.orderLineItemDtoList">
+                                <td class="item-detail-value">{{item.sku}}</td>
+                                <td class="item-detail-value">{{item.style}}</td>
+                                <td class="item-detail-value">{{item.styleDesc}}</td>
+                                <td class="item-detail-value">{{item.colorDesc}}</td>
+                                <td class="item-detail-value hcenter">{{item.size}}</td>
+                                <td class="item-detail-value hcenter">{{item.taxable == false ? 'No' : 'Yes'}}
+                                </td>
+                                <td class="item-detail-value hcenter">{{item.discountFIC == 0 ? 0 :
+                                    (item.discountFIC | currency)}}
+                                </td>
+                                <td class="item-detail-value hcenter">{{item.discountAmountEach | currency}}</td>
+                                <td class="item-detail-value hcenter">
+                                    <span ng-if="item.itemDiscountList != null" data-toggle="tooltip"
+                                          data-placement="left"
+                                          title="{{item.itemDiscountList}}">
+                                                    <i class="fa fa-list-ul"></i>
+
+                                </td>
+                                <td class="item-detail-value-qty">{{item.quantity}}</td>
+                                <td class="item-detail-value-qty">{{item.returnQty}}</td>
+                                <td class="item-detail-value-qty">{{item.refundQty}}</td>
+                                <td class="item-detail-value-qty">{{item.cancelQty}}</td>
+                                <td class="item-detail-value-qty">{{item.shipQty}}</td>
+                                <td class="item-detail-value hcenter">{{item.unitPrice | currency}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </td>
+                    </tr>
+                    </tbody>
+                    </table>
+                </div>
+                <!--------------------------------------------->
+                <!------------ Status Detail ------------------>
+                <!--------------------------------------------->
+                <div uib-accordion-group class="panel-default" is-open="status.isStatusOpen"
+                     template-url="resources/app/bower/angular-ui-bootstrap/template/accordion/accordion-group.html">
+                    <uib-accordion-heading>
+                        Status Details
+                        <i class="glyphicon"
+                           ng-class="{'glyphicon-chevron-down': status.isStatusOpen, 'glyphicon-chevron-right': !status.isStatusOpen}"></i>
+                    </uib-accordion-heading>
+                    <table id="status-detail" class="table table-hover order-detail-table" border="0">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="status in orderStatusList">
+                                <td>{{status.timestamp | date : "M/dd/yyyy h:mm:ss a"}}</td>
+                                <td>{{status.status}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </uib-accordion>
+
+
+        </div> <!-- end of the panel -->
+    </div>
+</div>
+
+

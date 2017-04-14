@@ -1,0 +1,42 @@
+<div class="generic-container">
+	<div ng-include="'resources/app/breadcrumbs.html'"></div>
+	<div class="panel panel-default">
+		<!-- Default panel contents -->
+	    <div class="tablecontainer">
+			<table class="table table-hover">
+				<tbody>
+				<tr>
+					<td>
+						This screen offers the user the ability to resubmit an Order to NFI
+					</td>
+				</tr>
+				</tbody>
+			</table>
+			<form name="orderForm" class="form-horizontal">
+				<div class="form-group">
+					<label for="orderNumber" class="col-sm-2 control-label">Gift Card Number:</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" ng-model="order.number" maxlength="8" id="orderNumber"
+							   placeholder="Order Number" only-digits>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button class="btn-sm btn-info" ng-click="resubmitOrder()">Resubmit Order</button>
+					</div>
+				</div>
+			</form>
+			<div class="alert alert-dismissible alert-success" ng-show="showOrderSuccess">
+				<span class="fa fa-check-circle"></span>
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong>Success!</strong> The Order was successfully resubmitted
+			</div>
+			<div class="alert alert-dismissible alert-danger" ng-show="showOrderError">
+				<span class="fa fa-exclamation-triangle">&nbsp;</span>
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong>Failure!</strong> The order could not be resubmitted for the following reason: &nbsp; {{orderReason}}
+			</div>
+		</div>
+	</div>
+</div>
+
