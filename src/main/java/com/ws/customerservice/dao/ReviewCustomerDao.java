@@ -18,8 +18,9 @@ import java.util.List;
 
 /**
  * ----------------------------------------------------------------------------
- * - Title:  XXX
- * - Description:  This class does xxx for Repo
+ * - Title:  ReviewCustomerDao
+ * - Description:  This class handles the Data Access for the Review Customers
+ *                  Module
  * - Copyright:  Copyright (c) 2016
  * - Company:  Wet Seal, LLC
  * - @author <a href="Cyndee.Shank@wetseal.com">Cyndee Shank</a>

@@ -19,8 +19,8 @@ import java.util.*;
 
 /**
  * ----------------------------------------------------------------------------
- * - Title:  XXX
- * - Description:  This class does xxx for Repo
+ * - Title:  ReportsDao
+ * - Description:  This class handles the Data Access for the Reports Module
  * - Copyright:  Copyright (c) 2016
  * - Company:  Wet Seal, LLC
  * - @author <a href="Cyndee.Shank@wetseal.com">Cyndee Shank</a>
