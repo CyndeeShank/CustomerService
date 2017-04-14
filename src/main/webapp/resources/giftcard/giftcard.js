@@ -36,7 +36,6 @@ CustomerServiceApp
             // Get/set search type
             $scope.setType = function (type) {
                 $location.search("type", type).replace();
-                //log("$scope.type", $scope.type);
                 log(type);
             };
             $scope.type = $routeParams.type ? $routeParams.type : $scope.setType("balance");

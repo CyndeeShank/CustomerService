@@ -12,8 +12,8 @@ import java.sql.ResultSet;
 
 /**
  * ----------------------------------------------------------------------------
- * - Title:  XXX
- * - Description:  This class does xxx for Repo
+ * - Title:  GiftcardDao
+ * - Description:  This class handles the Data Access for the Gift Card Module
  * - Copyright:  Copyright (c) 2016
  * - Company:  Wet Seal, LLC
  * - @author <a href="Cyndee.Shank@wetseal.com">Cyndee Shank</a>
